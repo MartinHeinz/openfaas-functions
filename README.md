@@ -27,4 +27,4 @@ faas-cli new --lang golang-mod test-func --prefix="martinheinz"
 
 - [Using template from external repository](https://github.com/openfaas/faas-cli/blob/master/guide/TEMPLATE.md)
 - [OpenFaaS Function Store](https://github.com/openfaas/store/)
-
+- [Customise a template](https://docs.openfaas.com/cli/templates/#80-customise-a-template)
