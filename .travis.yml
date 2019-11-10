@@ -1,0 +1,20 @@
+sudo: required
+
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - docker-ce
+
+install:
+  - curl -sL https://taskfile.dev/install.sh | sh
+
+before_install:
+
+script:
+  - ./bin/task verify
+
+notifications:
+  email: false

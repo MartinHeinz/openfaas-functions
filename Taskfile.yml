@@ -1,0 +1,48 @@
+version: '2'
+
+vars:
+  OPENFAAS_TEMPLATE_STORE_URL: https://raw.githubusercontent.com/MartinHeinz/openfaas-templates/master/templates.json
+  PREFIX: martinheinz
+  SUFFIX:
+    sh: cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 8 | head -n 1
+
+tasks:
+  verify:  # task verify (This is ran in CI)
+    dir: ./functions
+    cmds:
+      - ../verify.sh
+    silent: true
+
+  build:  # task build FUNC=my-func
+    dir: ./functions
+    cmds:
+      - faas-cli build -f {{.FUNC}}.yml
+
+  run:  # task run FUNC=my-func
+    dir: ./functions
+    cmds:
+      - faas-cli build -f {{.FUNC}}.yml
+      - faas-cli push -f {{.FUNC}}.yml
+      - faas-cli deploy -f {{.FUNC}}.yml
+
+  create:  # task create TPL=golang-mod FUNC=my-func
+    dir: ./functions
+    cmds:
+      - faas-cli template store pull --url={{.OPENFAAS_TEMPLATE_STORE_URL}} {{.TPL}} --overwrite
+      - faas-cli new --lang {{.TPL}} {{.FUNC}} --prefix="{{.PREFIX}}"
+      - rm .gitignore
+      - git add {{.FUNC}}.yml ./{{.FUNC}}
+
+  logs:  # task logs FUNC=my-func
+    cmds:
+      - kubectl describe -n openfaas-fn deploy/{{.FUNC}}
+      - echo -e "\nLogs:\n\n"
+      - kubectl logs -n openfaas-fn deploy/{{.FUNC}}
+    silent: true
+
+  debug:  # task debug FUNC=my-func
+    cmds:
+      - docker run --rm --name debug-func-{{.SUFFIX}} -p 8081:8080 {{.PREFIX}}/{{.FUNC}}:latest
+      - docker exec -it debug-func-{{.SUFFIX}}
+    ignore_error: true
+

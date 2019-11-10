@@ -1,4 +1,5 @@
 # OpenFaaS Functions
+[![Build Status](https://travis-ci.com/MartinHeinz/openfaas-functions.svg?branch=master)](https://travis-ci.com/MartinHeinz/openfaas-functions)
 
 This is repository for various function that use OpenFaaS platform.
 
