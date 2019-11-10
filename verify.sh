@@ -15,7 +15,8 @@ fi
 
 for yaml in ./*.yml
 do
-    echo $yaml
+    [ -f "$yaml" ] || continue
+    echo -e "\nBuilding $yaml ...\n"
 
     pushd . 2>/dev/null 1>&2
     $CLI build -f $yaml
