@@ -1,7 +1,7 @@
 version: '2'
 
 vars:
-  OPENFAAS_TEMPLATE_STORE_URL: https://raw.githubusercontent.com/MartinHeinz/openfaas-templates/master/templates.json
+  OPENFAAS_TEMPLATE_STORE_URL: https://raw.githubusercontent.com/MartinHeinz/openfaas-templates/master/templates.json  # Default template https://raw.githubusercontent.com/openfaas/store/master/templates.json
   PREFIX: martinheinz
   SUFFIX:
     sh: cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 8 | head -n 1

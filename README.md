@@ -3,6 +3,10 @@
 
 This is repository for various function that use OpenFaaS platform.
 
+For more information please see blog post here:
+
+- [Going Serverless with OpenFaaS and Golang — The Ultimate Setup and Workflow](https://towardsdatascience.com/going-serverless-with-openfaas-and-golang-the-ultimate-setup-and-workflow-52a4a85a7951?source=friends_link&sk=7a844dc8e4421642dfd7530a112767da)
+
 ## Prerequisites
 
 - **k3s**:
