@@ -2,7 +2,8 @@
 set -e
 
 CLI="faas-cli"
-suffix=$3
+store=$1
+suffix=$2
 
 if ! [ -x "$(command -v faas-cli)" ]; then
     HERE=`pwd`
@@ -12,6 +13,8 @@ if ! [ -x "$(command -v faas-cli)" ]; then
 
     cd $HERE
 fi
+
+$CLI template pull $store
 
 for yaml in ./*.yml
 do

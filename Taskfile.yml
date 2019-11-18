@@ -1,7 +1,7 @@
 version: '2'
 
 vars:
-  OPENFAAS_TEMPLATE_STORE_URL: https://raw.githubusercontent.com/MartinHeinz/openfaas-templates/master/templates.json  # Default template https://raw.githubusercontent.com/openfaas/store/master/templates.json
+  OPENFAAS_TEMPLATE_STORE_URL: https://github.com/MartinHeinz/openfaas-templates
   PREFIX: martinheinz
   SUFFIX:
     sh: cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 8 | head -n 1
@@ -10,7 +10,7 @@ tasks:
   verify:  # task verify (This is ran in CI)
     dir: ./functions
     cmds:
-      - ../verify.sh
+      - ../verify.sh {{.OPENFAAS_TEMPLATE_STORE_URL}} {{.SUFFIX}}
     silent: true
 
   build:  # task build FUNC=my-func
@@ -28,7 +28,7 @@ tasks:
   create:  # task create TPL=golang-mod FUNC=my-func
     dir: ./functions
     cmds:
-      - faas-cli template store pull --url={{.OPENFAAS_TEMPLATE_STORE_URL}} {{.TPL}} --overwrite
+      - faas-cli template pull {{.OPENFAAS_TEMPLATE_STORE_URL}} {{.TPL}} --overwrite
       - faas-cli new --lang {{.TPL}} {{.FUNC}} --prefix="{{.PREFIX}}"
       - rm .gitignore
       - git add {{.FUNC}}.yml ./{{.FUNC}}
