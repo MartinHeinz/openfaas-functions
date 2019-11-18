@@ -9,9 +9,13 @@ For more information please see blog post here:
 
 ## Prerequisites
 
-- **k3s**:
+- **k3s** (`k3sup` install is preferable):
     
     ```bash
+    # Fastest, easiest and recommended option - using k3sup
+    curl -SLsf https://get.k3sup.dev/ | sudo sh
+    
+    # Manual, more involved option
     curl -sfL https://get.k3s.io | sh -
     
     sudo cat /var/lib/rancher/k3s/server/node-token  # This is K3S_TOKEN
@@ -37,9 +41,13 @@ For more information please see blog post here:
     curl -sL https://cli.openfaas.com | sudo sh
     ```
     
-- **OpenFaaS**:
+- **OpenFaaS** (`k3sup` install is preferable):
 
     ```bash
+    # Again if using k3sup - simpler, faster option
+    k3sup app install openfaas
+    
+    # Manual, more involved option
     git clone https://github.com/openfaas/faas-netes
     
     kubectl apply -f https://raw.githubusercontent.com/openfaas/faas-netes/master/namespaces.yml
